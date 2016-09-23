@@ -9,6 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-list/iron-list.html">
+<link rel="import" href="super-column.html">
 
 <!--
 An element providing a solution to no problem in particular.
@@ -42,15 +44,47 @@ Example:
         max-height: 100px;
         max-width: 100px;
       }
+      .test {
+        background-color: red;
+      }
+      iron-list{
+      margin-top: 72px;
+          background-color: red;
+    }
+    .column{
+      background-color: pink;
+    }
     </style>
-
-    <h1>&lt;super-grid&gt;</h1>
     <content></content>
-    <p class="author">
-      <img src$="{{author.image}}">
-      Cheers,<br/>
-      <span class="name">{{author.name}}</span>
-    </p>
+    <iron-list id= "ironlistdata" items="{{data1}}" as="item">
+
+      <template>
+
+        <table>
+          <tr>
+            <td>{{item.name}}<td>
+            <td>{{item.rollno}}</td>
+            <td>{{item.location.1.place}}</td>
+          </tr>
+
+      </table>
+      </template>
+    </iron-list>
+    <!-- <script>
+    debugger;
+    document.getElementById('#button_iron_list').addEventListener('click', function(){
+      this.data1 = [{
+           currentcustomerid: '1',
+         name: 'User Name',
+           mobilenumber: 'Phone Number',
+           emailid: 'Email Address',
+           profilepicture: 'static/avtaricon.png',
+           customeraddress: []
+         }]
+    })
+
+
+  </script> -->
   </template>
 
   <script>
@@ -58,47 +92,32 @@ Example:
       is: 'super-grid',
 
       properties: {
-        /**
-         * `fancy` indicates that the element should don a monocle and tophat,
-         * while checking its pocket watch.
-         */
-        fancy: Boolean,
 
-        /**
-         * Describes the author of the element, but is really just an excuse to
-         * show off JSDoc annotations.
-         *
-         * @type {{name: string, image: string}}
-         */
-        author: {
-          type: Object,
-          // Use `value` to provide a default value for a property, by setting it
-          // on your element's prototype.
-          //
-          // If you provide a function, as we do here, Polymer will call that
-          // _per element instance_.
-          //
-          // We do that to ensure that each element gets its own copy of the
-          // value, rather than having it shared across all instances (via the
-          // prototype).
-          value: function() {
-            return {
-              name:  'Dimitri Glazkov',
-              image: 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg',
-            };
-          }
-        },
       },
 
       // Element Lifecycle
 
       ready: function() {
-        // `ready` is called after all elements have been configured, but
-        // propagates bottom-up. This element's children are ready, but parents
-        // are not.
-        //
-        // This is the point where you should make modifications to the DOM (when
-        // necessary), or kick off any processes the element wants to perform.
+        var self = this;
+          self.$.ironlistdata.items = [{
+                 name: 'FullName',
+                 rollno: 'RollNo',
+                 location: [{place:'delhi'},{place:'delhi2'}]
+              },{
+                name: 'FullName1',
+                rollno: 'RollNo1'
+              }]
+
+      // var ironlist = document.createElement('iron-list');
+      // var template = document.createElement('template');
+      // var div = document.createElement('div');
+      // div.class = "divv"
+      //   Name: "shailja"
+      //   RollNo: "Roll No333"
+      // document.body.appendChild(div);
+      // document.body.appendChild(template);
+      // document.body.appendChild(ironlist);
+
       },
 
       attached: function() {
@@ -115,37 +134,9 @@ Example:
         // removed from a document.
         //
         // Use this to clean up anything you did in `attached`.
-      },
-
-      // Element Behavior
-
-      /**
-       * Sometimes it's just nice to say hi.
-       *
-       * @param {string} greeting A positive greeting.
-       * @return {string} The full greeting.
-       */
-      sayHello: function(greeting) {
-        var response = greeting || 'Hello World!';
-        return 'super-grid says, ' + response;
-      },
-
-      /**
-       * The `super-grid-lasers` event is fired whenever `fireLasers` is called.
-       *
-       * @event super-grid-lasers
-       * @detail {{sound: String}}
-       */
-
-      /**
-       * Attempt to destroy this element's enemies with a beam of light!
-       *
-       * Or, at least, dispatch an event in the vain hope that someone else will
-       * do the zapping.
-       */
-      fireLasers: function() {
-        this.fire('super-grid-lasers', {sound: 'Pew pew!'});
       }
+
+
     });
   </script>
 </dom-module>

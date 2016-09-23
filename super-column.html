@@ -30,27 +30,10 @@ Example:
 <dom-module id="super-column">
   <template>
     <style>
-      :host {
-        display: block;
-        box-sizing: border-box;
-      }
 
-      .author img {
-        display: block;
-        float: left;
-        margin-right: 5px;
-        max-height: 100px;
-        max-width: 100px;
-      }
     </style>
-
-    <h1>&lt;super-column&gt;</h1>
     <content></content>
-    <p class="author">
-      <img src$="{{author.image}}">
-      Cheers,<br/>
-      <span class="name">{{author.name}}</span>
-    </p>
+
   </template>
 
   <script>
@@ -58,36 +41,7 @@ Example:
       is: 'super-column',
 
       properties: {
-        /**
-         * `fancy` indicates that the element should don a monocle and tophat,
-         * while checking its pocket watch.
-         */
-        fancy: Boolean,
 
-        /**
-         * Describes the author of the element, but is really just an excuse to
-         * show off JSDoc annotations.
-         *
-         * @type {{name: string, image: string}}
-         */
-        author: {
-          type: Object,
-          // Use `value` to provide a default value for a property, by setting it
-          // on your element's prototype.
-          //
-          // If you provide a function, as we do here, Polymer will call that
-          // _per element instance_.
-          //
-          // We do that to ensure that each element gets its own copy of the
-          // value, rather than having it shared across all instances (via the
-          // prototype).
-          value: function() {
-            return {
-              name:  'Dimitri Glazkov',
-              image: 'http://addyosmani.com/blog/wp-content/uploads/2013/04/unicorn.jpg',
-            };
-          }
-        },
       },
 
       // Element Lifecycle
@@ -143,9 +97,6 @@ Example:
        * Or, at least, dispatch an event in the vain hope that someone else will
        * do the zapping.
        */
-      fireLasers: function() {
-        this.fire('super-column-lasers', {sound: 'Pew pew!'});
-      }
     });
   </script>
 </dom-module>
