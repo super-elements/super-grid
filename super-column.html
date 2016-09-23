@@ -15,19 +15,19 @@ An element providing a solution to no problem in particular.
 
 Example:
 
-    <super-grid></super-grid>
+    <super-column></super-column>
 
 Example:
 
-    <super-grid>
-      <h2>Hello super-grid</h2>
-    </super-grid>
+    <super-column>
+      <h2>Hello super-column</h2>
+    </super-column>
 
 @demo demo/index.html
 @hero hero.svg
 -->
 
-<dom-module id="super-grid">
+<dom-module id="super-column">
   <template>
     <style>
       :host {
@@ -44,7 +44,7 @@ Example:
       }
     </style>
 
-    <h1>&lt;super-grid&gt;</h1>
+    <h1>&lt;super-column&gt;</h1>
     <content></content>
     <p class="author">
       <img src$="{{author.image}}">
@@ -55,7 +55,7 @@ Example:
 
   <script>
     Polymer({
-      is: 'super-grid',
+      is: 'super-column',
 
       properties: {
         /**
@@ -127,13 +127,13 @@ Example:
        */
       sayHello: function(greeting) {
         var response = greeting || 'Hello World!';
-        return 'super-grid says, ' + response;
+        return 'super-column says, ' + response;
       },
 
       /**
-       * The `super-grid-lasers` event is fired whenever `fireLasers` is called.
+       * The `super-column-lasers` event is fired whenever `fireLasers` is called.
        *
-       * @event super-grid-lasers
+       * @event super-column-lasers
        * @detail {{sound: String}}
        */
 
@@ -144,7 +144,7 @@ Example:
        * do the zapping.
        */
       fireLasers: function() {
-        this.fire('super-grid-lasers', {sound: 'Pew pew!'});
+        this.fire('super-column-lasers', {sound: 'Pew pew!'});
       }
     });
   </script>
