@@ -11,7 +11,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-list/iron-list.html">
 <link rel="import" href="super-column.html">
-
+<link rel="import" href="/bower_components/bulma/css/bulma.css">
+<link rel="import" href="/bower_components/bulma/css/bulma.min.css">
+<link rel="import" href="bulma-css.html">
 <!--
 An element providing a solution to no problem in particular.
 
@@ -31,7 +33,7 @@ Example:
 
 <dom-module id="super-grid">
   <template>
-    <style>
+    <style is="custom-style" include="bulma-css">
       :host {
         display: block;
         box-sizing: border-box;
@@ -49,25 +51,51 @@ Example:
       }
       iron-list{
       margin-top: 72px;
-          background-color: red;
+
+      position:relative;
+
     }
-    .column{
+    div.grid-layout1{
+      box-sizing: border-box;
+      border-top: 1px solid black;
       background-color: pink;
+
     }
+    div.childlayout{
+
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+    /*.column {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+      padding: 10px;
+      color:blue;
+
+    }
+
+
+    .columns {
+      margin-left: -10px;
+      margin-right: -10px;
+      margin-top: -10px;
+    }*/
+
     </style>
-    <content></content>
-    <iron-list id= "ironlistdata" items="{{data1}}" as="item">
+      <!-- <content id="myContent"></content> -->
 
-      <template>
+    <iron-list id= "ironlistdata" items="{{data1}}" as="item" scroll-target="document" grid>
 
-        <table>
-          <tr>
-            <td>{{item.name}}<td>
-            <td>{{item.rollno}}</td>
-            <td>{{item.location.1.place}}</td>
-          </tr>
-
-      </table>
+      <div id="gridContainer" class="columns grid-layout1 super-grid" style="position: relative;">
+        
+      </div>
+      <template id="cont1">
+        <div id="gridRows" class="columns grid-layout1 super-grid" style="position: relative;">
+          <div class="column childlayout">{{item.name}} </div>
+          <div class="column childlayout">{{item.rollno}}</div>
+        </div>
       </template>
     </iron-list>
     <!-- <script>
@@ -98,11 +126,38 @@ Example:
       // Element Lifecycle
 
       ready: function() {
+
+        this.child = Polymer.dom(this).children;
+        console.log('this.child', this.child);
+        for(var i=0; i<this.child.length; i++){
+          var headerElement = document.createElement('div');
+           headerElement.setAttribute("class", "column super-grid childlayout");
+          var textnode = document.createTextNode(this.child[i].innerText);         // Create a text node
+          headerElement.appendChild(textnode);
+          console.log('headerElement', headerElement);
+           document.getElementById("gridContainer").appendChild(headerElement);
+        }
+        // for(var i=0; i<this.child.length; i++){
+        //     var headerElement1 = document.createElement('div');
+        //    headerElement1.setAttribute("class", "column super-grid childlayout");
+        //    var attr =this.child[i].getAttribute("name")
+        //   console.log('headerElement', headerElement1);
+        //   var textnode = document.createTextNode("{{item."+attr+"}}");         // Create a text node
+        //   headerElement1.appendChild(textnode);
+        //   document.getElementById("gridRows").appendChild(headerElement1);
+        // }
+
+        // var parentDiv = document.getElementById("childElement").parentNode;
+        // var sp2 = document.getElementById("childElement");
+        // // parentDiv.insertBefore(newNode, sp2);
+        // var insertedNode = myContent.insertBefore(headerElement, ironlistdata);
+        // var referenceNode = document.getElementById('ironlistdata');
+        // console.log(referenceNode);
+        // referenceNode.parentNode.insertBefore(headerElement, referenceNode.nextSibling);
         var self = this;
           self.$.ironlistdata.items = [{
                  name: 'FullName',
-                 rollno: 'RollNo',
-                 location: [{place:'delhi'},{place:'delhi2'}]
+                 rollno: 'RollNo'
               },{
                 name: 'FullName1',
                 rollno: 'RollNo1'
@@ -121,6 +176,8 @@ Example:
       },
 
       attached: function() {
+
+        //console.log('this.childCount', this.childCount[0].innerText);
         // `attached` fires once the element and its parents have been inserted
         // into a document.
         //
