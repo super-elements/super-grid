@@ -8,11 +8,11 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-list/iron-list.html">
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-list/iron-list.html">
 <link rel="import" href="super-column.html">
-<link rel="import" href="/bower_components/bulma/css/bulma.css">
-<link rel="import" href="/bower_components/bulma/css/bulma.min.css">
+<!-- <link rel="import" href="bower_components/bulma/css/bulma.css">
+<link rel="import" href="bower_components/bulma/css/bulma.min.css"> -->
 <link rel="import" href="bulma-css.html">
 <!--
 An element providing a solution to no problem in particular.
@@ -59,6 +59,16 @@ Example:
       box-sizing: border-box;
       border-top: 1px solid black;
       background-color: pink;
+      transform: none;
+      position: relative;
+
+    }
+    div.rows{
+      box-sizing: border-box;
+      border-top: 1px solid black;
+      transform: none;
+      -webkit-transform: none;
+      position: relative;
 
     }
     div.childlayout{
@@ -89,12 +99,13 @@ Example:
     <iron-list id= "ironlistdata" items="{{data1}}" as="item" scroll-target="document" grid>
 
       <div id="gridContainer" class="columns grid-layout1 super-grid" style="position: relative;">
-        
+
       </div>
       <template id="cont1">
-        <div id="gridRows" class="columns grid-layout1 super-grid" style="position: relative;">
+        <div id="gridRows" class="columns rows super-grid" style="position:relative;">
           <div class="column childlayout">{{item.name}} </div>
           <div class="column childlayout">{{item.rollno}}</div>
+          <div class="column childlayout">{{item.subject}}</div>
         </div>
       </template>
     </iron-list>
@@ -157,10 +168,12 @@ Example:
         var self = this;
           self.$.ironlistdata.items = [{
                  name: 'FullName',
-                 rollno: 'RollNo'
+                 rollno: 'RollNo',
+                 subject: 'Maths'
               },{
                 name: 'FullName1',
-                rollno: 'RollNo1'
+                rollno: 'RollNo1',
+                subject: 'English'
               }]
 
       // var ironlist = document.createElement('iron-list');
